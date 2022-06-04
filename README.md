@@ -14,7 +14,9 @@ There is also a sample leaflet map to test it.
 
 
 -el Raval
+
 -el Barri Gòtic
+
 -la Barceloneta
 -Sant Pere, Santa Caterina i la Ribera
 -el Fort Pienc
