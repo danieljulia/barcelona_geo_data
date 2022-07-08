@@ -39,6 +39,8 @@ html, body, #mapid {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
+  var vallvidrera;
+    var polys=[];
 
 	$(document).ready(function(){
 
@@ -46,12 +48,46 @@ html, body, #mapid {
 				function(data){
                         console.log(data);
                         for(var i=0;i<data.length;i++){
-                            var poly=L.polygon( data[i].geometry, {color: "#6666ff"} );
+                            var poly=L.polygon( data[i].geometry, {alt:data[i].nom,color: "#6666ff"} );
                             poly.addTo(map);
                             poly.bindPopup(data[i].nom);
+                            polys.push(poly);
                         }
 
-				});
+        });
+
+        $.getJSON("la_marina_del_prat_vermell.json",
+            function(data){
+                console.log("data",data);
+               // data= L.GeoJSON.coordsToLatLng(data.data,2);
+                /*
+                for(var i=0;i<data.data.length;i++){
+                    for(var j=0;j<data.data[i].length;j++){
+                        console.log(data.data[i][j])
+                        var lng=data.data[i][j][0];
+                        var lat=data.data[i][j][1];
+                        data.data[i][j]=[lat,lng];
+                    }
+                }*/
+                L.geoJson(data).addTo(map);
+                /*
+                console.log("data",data);
+                var poly=L.polygon( data, {color: "#ff66ff"} );
+                poly.addTo(map);
+                */
+            }
+        );
+
+        $.getJSON("vallvidrera.json",
+            function(data){
+                console.log("data",data);
+                vallvidrera=L.geoJson(data,{color: "#ff66ff"});
+                vallvidrera.addTo(map);
+
+
+            }
+        );
+
 	});
 
 </script>
